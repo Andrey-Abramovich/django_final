@@ -9,3 +9,8 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'username']
+
+
+class ConfirmEmailForm(forms.Form):
+    email = forms.EmailField(label='Введите Ваш email', required=True)
+    code = forms.CharField(label='Введите проверочный код', required=True)
