@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'profil.User'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profil/home/'
+LOGOUT_REDIRECT_URL = '/profil/home/'
 
 # Application definition
 
@@ -132,3 +132,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#EMAIL
+# DEFAULT_FROM_EMAIL = 'abtest@yandex.ru'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # для отправки писем в консоль
+# RECIPIENTS_EMAIL = ['']
