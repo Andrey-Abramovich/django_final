@@ -17,7 +17,7 @@ def index(request):
 class Register(CreateView):
     template_name = 'registration/register.html'
     form_class = RegisterForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('confirm')
 
 
 def confirm_email(request):

@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'profil.User'
-LOGIN_REDIRECT_URL = '/profil/home/'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('logout')
 
 # Application definition

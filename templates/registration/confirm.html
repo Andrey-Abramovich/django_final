@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Enter your email and code</h1>
+    <h2>На указанный Вами адрес электронной почты отправлен регистрационный код. Введите его для подтверждения и завершения регистрации.</h2>
     <form action="{% url 'confirm' %}" method="post">
             {% csrf_token %}
             {{ form.as_p}}
