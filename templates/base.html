@@ -24,9 +24,11 @@
 {#        <a href="{% url 'view' %}">Личный кабинет пользователя {{ user.username }}</a>#}
         {% if not user.username %}
         <a href="{% url 'login' %}">Войти</a>
-        {% endif %}
         <a href="{% url 'register' %}">Регистрация</a>
+        {% endif %}
+
         {% if user.username %}
+        <a href="{% url 'profil' %}">Личный кабинет пользователя {{ user.username }}</a>
         <a href="{% url 'logout' %}">Выйти</a>
         {% endif %}
     </nav>

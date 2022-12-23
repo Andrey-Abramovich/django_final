@@ -1,9 +1,9 @@
 from django.contrib.auth import login, get_user_model
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from profil.forms import RegisterForm, ConfirmEmailForm
+from profil.forms import RegisterForm, ConfirmEmailForm, UserUpdateForm
 from profil.models import Verification
 
 User = get_user_model()
@@ -51,3 +51,23 @@ def confirm_email(request):
             'form': form
         }
         return render(request, 'registration/confirm.html', context)
+
+
+class ProfilDetailView(DetailView):
+    model = User
+    queryset = User.objects.all()
+    template_name = 'profil/profil.html'
+    context_object_name = 'profil'
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(User, id=self.request.user.id)
+
+
+class ProfilUpdateView(UpdateView):
+    form_class = UserUpdateForm
+    template_name = 'profil/update.html'
+    success_url = reverse_lazy('profil')
+
+    def get_object(self, queryset=None, **kwargs):
+        id = self.kwargs.get('pk')
+        return User.objects.get(pk=id)

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.username }} page{% endblock %}
+
+{% block content %}
+    <h1>Страница пользователя {{ user.username }}</h1>
+    <a href="{% url 'update' user.pk %}">Заполнить профиль</a>
+    <p>{{ profil.email }}</p>
+    <p>Дата рождения: {{ profil.birthday }}</p>
+    <p>Аватар: <img src="{{ profil.avatar.url }}"></p>
+    <p>{{ profil.first_name }}</p>
+    <p>{{ profil.last_name }}</p>
+
+{% endblock %}
