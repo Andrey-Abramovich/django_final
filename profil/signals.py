@@ -40,5 +40,5 @@ def user_register(sender, instance, created, **kwargs):
                   f'Your code: {code}',
                   'admin@site.ru',
                   [email])
-        V = Verification.objects.update_or_create(ver_code=code, ver_user=user)
+        Verification.objects.create(ver_code=code, ver_user=user)
         return redirect('index')
