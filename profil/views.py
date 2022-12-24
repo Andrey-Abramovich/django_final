@@ -1,8 +1,9 @@
 from django.contrib.auth import login, get_user_model
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 
+from board.models import Post
 from profil.forms import RegisterForm, ConfirmEmailForm, UserUpdateForm
 from profil.models import Verification
 
@@ -53,14 +54,34 @@ def confirm_email(request):
         return render(request, 'registration/confirm.html', context)
 
 
-class ProfilDetailView(DetailView):
-    model = User
-    queryset = User.objects.all()
-    template_name = 'profil/profil.html'
-    context_object_name = 'profil'
+# class ProfilDetailView(DetailView):
+#     model = User
+#     queryset = User.objects.all()
+#     template_name = 'profil/profil.html'
+#     context_object_name = 'profil'
+#
+#
+#     def get_object(self, **kwargs):
+#         return get_object_or_404(User, id=self.request.user.id)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         print('context: ', context)
+#         posts = Post.objects.filter(author=user)
+#         context['posts'] = posts
+#         return context
 
-    def get_object(self, **kwargs):
-        return get_object_or_404(User, id=self.request.user.id)
+
+class ProfileTemplateView(TemplateView):
+    template_name = 'profil/profil.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = User.objects.get(id=self.request.user.id)
+        context['posts'] = Post.objects.filter(author=context['user'])
+        print('context post ', context['posts'])
+        return context
 
 
 class ProfilUpdateView(UpdateView):

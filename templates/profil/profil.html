@@ -4,10 +4,22 @@
 {% block content %}
     <h1>Страница пользователя {{ user.username }}</h1>
     <a href="{% url 'update' user.pk %}">Заполнить профиль</a>
-    <p>{{ profil.email }}</p>
-    <p>Дата рождения: {{ profil.birthday }}</p>
-    <p>Аватар: <img src="{{ profil.avatar.url }}"></p>
-    <p>{{ profil.first_name }}</p>
-    <p>{{ profil.last_name }}</p>
+    <a href="{% url 'addpost' %}">Добавить объявление</a>
+    <p>{{ user.email }}</p>
+    {% if user.birthday %}
+    <p>Дата рождения: {{ user.birthday }}</p>
+    {% endif %}
+    {% if user.avatar %}
+    <p>Аватар: <img src="{{ user.avatar.url }}"></p>
+    {% endif %}
+    {% if user.first_name %}
+    <p>{{ user.first_name }}</p>
+    {% endif %}
+    {% if user.last_name %}
+    <p>{{ user.last_name }}</p>
+    {% endif %}
+    {% for post in posts %}
+        <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> опубликовано: {{ post.dateCreation }}</p>
+    {% endfor %}
 
 {% endblock %}

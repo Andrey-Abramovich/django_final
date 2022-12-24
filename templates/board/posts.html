@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}POSTS{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="container">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.author }}</p>
+        <p>Категория: {{ post.roles }}</p>
+        <p>{{ post.content }}</p>
+        <p>{% if post.upload %}
+                <img src="{{ post.upload.url }}">
+            {% endif %}</p>
+        <p>Дата публикации: {{ post.dateCreation }}</p>
+        </div>
+        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+
+    {% endfor %}
+{% endblock %}
