@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'profil.apps.ProfilConfig'
+    'profil.apps.ProfilConfig',
+    'board.apps.BoardConfig'
 ]
 
 SITE_ID = 1
