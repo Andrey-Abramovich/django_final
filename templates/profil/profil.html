@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}{{ user.username }} page{% endblock %}
+{% block title %}{{ profil.username }} page{% endblock %}
 
 {% block content %}
-    <h1>Страница пользователя {{ user.username }}</h1>
-    <a href="{% url 'update' user.pk %}">Заполнить профиль</a>
+    <h1>Страница пользователя {{ profil.username }}</h1>
+    <a href="{% url 'update' profil.pk %}">Заполнить профиль</a>
     <a href="{% url 'addpost' %}">Добавить объявление</a>
-    <p>{{ user.email }}</p>
-    {% if user.birthday %}
-    <p>Дата рождения: {{ user.birthday }}</p>
+    <p>{{ profil.email }}</p>
+    {% if profil.birthday %}
+    <p>Дата рождения: {{ profil.birthday }}</p>
     {% endif %}
-    {% if user.avatar %}
-    <p>Аватар: <img src="{{ user.avatar.url }}"></p>
+    {% if profil.avatar %}
+    <p>Аватар: <img src="{{ profil.avatar.url }}"></p>
     {% endif %}
-    {% if user.first_name %}
-    <p>{{ user.first_name }}</p>
+    {% if profil.first_name %}
+    <p>{{ profil.first_name }}</p>
     {% endif %}
-    {% if user.last_name %}
-    <p>{{ user.last_name }}</p>
+    {% if profil.last_name %}
+    <p>{{ profil.last_name }}</p>
     {% endif %}
     {% for post in posts %}
         <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> опубликовано: {{ post.dateCreation }}</p>

@@ -10,15 +10,14 @@ from profil.models import Verification
 User = get_user_model()
 
 
+# Сигнал на создание пользователя
 @receiver(post_save, sender=User)
 def user_register(sender, instance, created, **kwargs):
-    print('instance ', instance)
     email = instance.email
     print('email: ', email)
     user = instance
     print('user: ', user)
     v = Verification.objects.filter(ver_user=user)
-    print('v: ', v)
     # if v.exists():
     #     print('TRUUUUUUE!!!')
     #     return redirect('index')
@@ -34,11 +33,11 @@ def user_register(sender, instance, created, **kwargs):
     #     return redirect('index')
 
     if created:
-        code = get_random_string(10)
+        code = get_random_string(10)   # Генерируем рандомный код при создании пользователя
         print('CODE: ', code)
         send_mail('Enter this secret code to confirm your email',
                   f'Your code: {code}',
                   'admin@site.ru',
                   [email])
-        V = Verification.objects.update_or_create(ver_code=code, ver_user=user)
+        Verification.objects.update_or_create(ver_code=code, ver_user=user)
         return redirect('index')
