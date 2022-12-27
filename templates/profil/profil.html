@@ -18,15 +18,27 @@
     {% if profil.last_name %}
     <p>{{ profil.last_name }}</p>
     {% endif %}
-    {% for post in posts %}
-        <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> опубликовано: {{ post.dateCreation }}</p>
-    {% endfor %}
+    <hr><hr>
+<div class="container">
+    <div class="row">
 
-    {% for r in responds %}
-        <p>{{ r.respauthor }}</p>
-        <p>{{ r.post }}</p>
-        <p>{{ r.text }}</p>
-        <p>{{ r.dateCreation }}</p>
-    {% endfor %}
+        <div class="col-sm">
+        <h4>Ваши опубликованные объявления</h4>
+        {% for post in posts %}
+            <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> опубликовано: {{ post.dateCreation }}</p>
+        {% endfor %}
+        </div>
 
+        <div class="col-sm">
+        <h4>Отклики на Ваши объявления</h4>
+        {% for r in responds %}
+            <p>{{ r.respauthor }}</p>
+            <p>{{ r.post }}</p>
+            <p>{{ r.text }}</p>
+            <p>{{ r.dateCreation }}</p>
+            <hr>
+        {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -40,7 +40,7 @@ class PostDetail(DetailView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['responds'] = Respond.objects.all()
+        context['responds'] = Respond.objects.filter(post__id=self.object.id)
         return context
 
     def form_valid(self, form):

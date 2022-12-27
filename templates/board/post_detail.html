@@ -14,12 +14,14 @@
     {{ form.as_p }}
     <input type="submit" value="Отправить">
     </form>
+    <br>
+    <h4>Отклики:</h4>
     {% for r in responds %}
         <p>{{ r.respauthor }}</p>
         <p>{{ r.post }}</p>
         <p>{{ r.text }}</p>
         <p>{{ r.dateCreation }}</p>
+        <hr>
     {% endfor %}
 
-    <a href="{% url 'addrespond' %}">Оставить отзыв</a>
 {% endblock %}

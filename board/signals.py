@@ -16,12 +16,14 @@ def respond_save(sender, instance, created, **kwargs):
     print('rpost : ', post)
     user = instance.post.author
     print('ruser: ', user)
+    url = f'{instance.post.id}'
     if created:
         send_mail(
-            'fff',
+            'Вы получили отклик на Ваше объявление',
             f'{respauthor} send resp at {post}',
             'admin@site.ru',
-            [user.email]
+            [user.email],
+            html_message=f'<a href="http://127.0.0.1:8000/board/post/{url}" role="button">Читать!</a>'
         )
         return redirect('index')
 
@@ -30,12 +32,14 @@ def respond_save(sender, instance, created, **kwargs):
 def post_save(sender, instance, created, **kwargs):
     author = instance.author
     post = instance.title
+    url = f'{instance.id}'
     users_emails = User.objects.all()
     if created:
         for u in users_emails:
             send_mail(
-                'sss',
+                'Появилось новое объявление!',
                 f'{author} add a new post {post}',
                 'admin@site.ru',
-                [u.email]
+                [u.email],
+                html_message=f'<a href="http://127.0.0.1:8000/board/post/{url}" role="button">Читать!</a>'
             )
