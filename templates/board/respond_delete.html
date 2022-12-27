@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Delete{% endblock %}
+
+{% block content %}
+    <h2>Вы действительно хотите удалить комментарий от {{ respond.respauthor }} к объявлению {{ respond.post.title }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="подтвердить">
+    </form>
+{% endblock %}

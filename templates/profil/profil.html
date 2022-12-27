@@ -36,6 +36,7 @@
             <p>{{ r.post }}</p>
             <p>{{ r.text }}</p>
             <p>{{ r.dateCreation }}</p>
+            <a href="{% url 'resp_delete' r.pk %}">Удалить отклик</a>
             <hr>
         {% endfor %}
         </div>

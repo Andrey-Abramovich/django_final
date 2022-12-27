@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView
+from django.views.generic import CreateView, DetailView, FormView, DeleteView
 
 from board.forms import PostCreateForm, RespondCreateForm
 from board.models import Post, Category, Respond
@@ -56,24 +56,7 @@ class PostDetail(DetailView, FormView):
         return super().form_valid(form)
 
 
-class RespondCreate(CreateView):
-    model = Post
-    form_class = RespondCreateForm
-    template_name = 'board/respond_create.html'
-    success_url = reverse_lazy('post_detail')
-
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        id = self.object.get('pk')
-        self.object.post_id = id
-        self.object.respauthor = self.request.user
-        self.object.save()
-        return super().form_valid(form)
+class RespondDelete(DeleteView):
+    model = Respond
+    template_name = 'board/respond_delete.html'
+    success_url = reverse_lazy('profil')
