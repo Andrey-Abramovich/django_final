@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 
-from board.models import Post
+from board.models import Post, Respond
 from profil.forms import RegisterForm, ConfirmEmailForm, UserUpdateForm
 from profil.models import Verification
 
@@ -66,6 +66,8 @@ class ProfilDetailView(DetailView):
         print('context: ', context)
         posts = Post.objects.filter(author=user)
         context['posts'] = posts
+        responds = Respond.objects.filter(post__author=user)
+        context['responds'] = responds
         return context
 
 

@@ -22,4 +22,11 @@
         <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a> опубликовано: {{ post.dateCreation }}</p>
     {% endfor %}
 
+    {% for r in responds %}
+        <p>{{ r.respauthor }}</p>
+        <p>{{ r.post }}</p>
+        <p>{{ r.text }}</p>
+        <p>{{ r.dateCreation }}</p>
+    {% endfor %}
+
 {% endblock %}
