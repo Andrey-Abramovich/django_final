@@ -1,6 +1,7 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, DeleteView
+from django.views.generic import CreateView, DetailView, FormView, DeleteView, UpdateView
 
 from board.forms import PostCreateForm, RespondCreateForm
 from board.models import Post, Category, Respond
@@ -9,8 +10,11 @@ from board.models import Post, Category, Respond
 def index(request):
     posts = Post.objects.all()
     category = Category.objects.all()
-    respond = Respond.objects.all()
-    context = {'posts': posts, 'category': category, 'respond': respond}
+    # Добавляем пагинатор на страницу, в шаблоне вместо posts используем page_obj
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'posts': posts, 'category': category, 'page_obj': page_obj}
     return render(request, 'board/posts.html', context)
 
 
@@ -32,6 +36,31 @@ class PostCreate(CreateView):
         self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
+
+
+class PostUpdate(UpdateView):
+    model = Post
+    form_class = PostCreateForm
+    template_name = 'board/postcreate.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
+
+    # def post(self, request, *args, **kwargs):
+    #     form = self.get_form()
+    #     if form.is_valid():
+    #         return self.form_valid(form)
+    #     else:
+    #         return self.form_invalid(form)
+
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     self.object.author = self.request.user
+    #     self.object.save()
+    #     return super().form_valid(form)
+
 
 class PostDetail(DetailView, FormView):
     model = Post

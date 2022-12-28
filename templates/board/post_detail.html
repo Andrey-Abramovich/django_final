@@ -8,6 +8,9 @@
     <p>{{ post.author }}</p>
     <p>{{ post.roles }}</p>
     <p>{{ post.dateCreation }}</p>
+    {% if post.author == user %}
+        <a href="{% url 'post_update' pk=post.pk %}">Корректировать объявление</a>
+    {% endif %}
     <hr>
     <form method="post">
     {% csrf_token %}
