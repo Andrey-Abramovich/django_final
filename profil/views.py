@@ -10,11 +10,6 @@ from profil.models import Verification
 User = get_user_model()
 
 
-# def index(request):
-#     template_name = 'base.html'
-#     return render(request, template_name)
-#
-
 # Регистрация пользователя
 class Register(CreateView):
     template_name = 'registration/register.html'
@@ -63,7 +58,7 @@ class ProfilDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        print('context: ', context)
+        # print('context: ', context)
         posts = Post.objects.filter(author=user)
         context['posts'] = posts
         responds = Respond.objects.filter(post__author=user)
