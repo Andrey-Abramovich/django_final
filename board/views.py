@@ -1,21 +1,30 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, DeleteView, UpdateView
+from django.views.generic import CreateView, DetailView, FormView, DeleteView, UpdateView, ListView
 
 from board.forms import PostCreateForm, RespondCreateForm
 from board.models import Post, Category, Respond
 
 
-def index(request):
-    posts = Post.objects.all()
-    category = Category.objects.all()
-    # Добавляем пагинатор на страницу, в шаблоне вместо posts используем page_obj
-    paginator = Paginator(posts, 3)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {'posts': posts, 'category': category, 'page_obj': page_obj}
-    return render(request, 'board/posts.html', context)
+# def index(request):
+#     posts = Post.objects.all()
+#     ordering = ['-dateCreation']
+#     category = Category.objects.all()
+#     # Добавляем пагинатор на страницу, в шаблоне вместо posts используем page_obj
+#     paginator = Paginator(posts, 3)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     context = {'posts': posts, 'category': category, 'page_obj': page_obj}
+#     return render(request, 'board/posts.html', context)
+
+
+class Posts(ListView):
+    model = Post
+    ordering = ['-dateCreation']
+    template_name = 'board/posts.html'
+    context_object_name = 'posts'
+    paginate_by = 3
 
 
 class PostCreate(CreateView):

@@ -14,30 +14,16 @@ User = get_user_model()
 @receiver(post_save, sender=User)
 def user_register(sender, instance, created, **kwargs):
     email = instance.email
-    print('email: ', email)
+    # print('email: ', email)
     user = instance
-    print('user: ', user)
-    v = Verification.objects.filter(ver_user=user)
-    # if v.exists():
-    #     print('TRUUUUUUE!!!')
-    #     return redirect('index')
-    #
-    # else:
-    #     code = get_random_string(10)
-    #     print('CODE: ', code)
-    #     send_mail('Enter this secret code to confirm your email',
-    #               f'Your code: {code}',
-    #               'admin@site.ru',
-    #               [email])
-    #     V = Verification.objects.update_or_create(ver_code=code, ver_user=user)
-    #     return redirect('index')
-
+    # print('user: ', user)
+    Verification.objects.filter(ver_user=user)
     if created:
         code = get_random_string(10)   # Генерируем рандомный код при создании пользователя
         print('CODE: ', code)
-        send_mail('Enter this secret code to confirm your email',
-                  f'Your code: {code}',
-                  'admin@site.ru',
+        send_mail('Секретный код автооризации',
+                  f'Ваш адрес электронной почты {email} был указан при регистрации. Введите этот код {code} для подтверждения регистрации',
+                  'andrey-abtest@yandex.ru',
                   [email])
         Verification.objects.update_or_create(ver_code=code, ver_user=user)
         return redirect('index')

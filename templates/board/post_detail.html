@@ -12,16 +12,17 @@
         <a href="{% url 'post_update' pk=post.pk %}">Корректировать объявление</a>
     {% endif %}
     <hr>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Отправить">
-    </form>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Отправить">
+        </form>
+    {% endif %}
     <br>
     <h4>Отклики:</h4>
     {% for r in responds %}
         <p>{{ r.respauthor }}</p>
-        <p>{{ r.post }}</p>
         <p>{{ r.text }}</p>
         <p>{{ r.dateCreation }}</p>
         <hr>
