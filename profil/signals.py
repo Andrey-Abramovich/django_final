@@ -21,7 +21,7 @@ def user_register(sender, instance, created, **kwargs):
     if created:
         code = get_random_string(10)   # Генерируем рандомный код при создании пользователя
         print('CODE: ', code)
-        send_mail('Секретный код автооризации',
+        send_mail('Секретный код авторизации',
                   f'Ваш адрес электронной почты {email} был указан при регистрации. Введите этот код {code} для подтверждения регистрации',
                   'andrey-abtest@yandex.ru',
                   [email])
