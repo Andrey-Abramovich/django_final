@@ -17,19 +17,15 @@
     <nav>
         <a href="{% url 'index' %}">Главная</a>
         {% if user.username and not user.is_active %}
-        <a href="{% url 'confirm' %}">confirm</a>
+            <a href="{% url 'confirm' %}">confirm</a>
         {% endif %}
-{#        <a href="{% url 'update' %}">update</a>#}
-
-{#        <a href="{% url 'view' %}">Личный кабинет пользователя {{ user.username }}</a>#}
         {% if not user.username %}
-        <a href="{% url 'login' %}">Войти</a>
-        <a href="{% url 'register' %}">Регистрация</a>
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'register' %}">Регистрация</a>
         {% endif %}
-
         {% if user.username %}
-        <a href="{% url 'profil' %}">Личный кабинет пользователя {{ user.username }}</a>
-        <a href="{% url 'logout' %}">Выйти</a>
+            <a href="{% url 'profil' %}">Личный кабинет пользователя {{ user.username }}</a>
+            <a href="{% url 'logout' %}">Выйти</a>
         {% endif %}
     </nav>
     <section>
