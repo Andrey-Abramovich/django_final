@@ -26,6 +26,14 @@ def respond_save(sender, instance, created, **kwargs):
             html_message=f'<a href="http://127.0.0.1:8000/board/post/{url}" role="button">Читать!</a>'
         )
         return redirect('index')
+    else:
+        send_mail(
+            'Ваш отклик принят',
+            f'{user} принял Ваш отклик на {post}',
+            'admin@site.ru',
+            [respauthor.email]
+        )
+        return redirect('index')
 
 
 @receiver(post_save, sender=Post)

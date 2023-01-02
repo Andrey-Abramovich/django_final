@@ -36,7 +36,12 @@
             <p>{{ r.post }}</p>
             <p>{{ r.text }}</p>
             <p>{{ r.dateCreation }}</p>
+            {% if r.status == True %}<h4>Активно!</h4>{% endif %}
             <a href="{% url 'resp_delete' r.pk %}">Удалить отклик</a>
+            {% if  r.status == False %}
+                <a href="{% url 'respond_activate' r.pk %}">Принять отклик</a>
+                <p>Не активно</p>
+            {% endif %}
             <hr>
         {% endfor %}
         </div>
